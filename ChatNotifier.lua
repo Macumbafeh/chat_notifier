@@ -1,11 +1,11 @@
--- SavedVariables: enabled, keyword
+-- SavedVariables: enabled, keywords
 
 if enabled == nil then
   enabled = false;
 end
 
-if keyword == nil then
-  keyword = 'empty keyword kekw';
+if keywords == nil then
+  keywords = {};
 end
 
 
@@ -19,13 +19,15 @@ chatFrame:SetScript(
       return nil;
     end
 
-    if not string.match(string.lower(channel), 'global') then
-      return nil;
+    local matched = false;
+    for i = 1, #keywords do
+      if (string.match(string.lower(chatMessage), string.lower(keywords[i]))) then
+        matched = true;
+        break;
+      end
     end
 
-    local isMatched = string.match(string.lower(chatMessage), string.lower(keyword));
-
-    if isMatched then
+    if matched then
       DEFAULT_CHAT_FRAME:AddMessage('[' .. sender .. ']: ' .. chatMessage);
     end
 
@@ -38,9 +40,9 @@ function SlashCmdList.CN(slashMessage)
 
   if slashMessage == 'enabled' then
     if enabled then
-        DEFAULT_CHAT_FRAME:AddMessage('addon is enabled');
+        DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled');
     else
-      DEFAULT_CHAT_FRAME:AddMessage('addon is disabled');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled');
     end
 
     return nil;
@@ -48,24 +50,65 @@ function SlashCmdList.CN(slashMessage)
 
   if slashMessage == 'enable' then
     enabled = true;
+
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled');
+
     return nil;
   end
 
   if slashMessage == 'disable' then
     enabled = false;
+
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled');
+
     return nil;
   end
 
-  if slashMessage == 'keyword' then
-    DEFAULT_CHAT_FRAME:AddMessage('keyword is "' .. keyword .. '"');
+  if slashMessage == 'show' then
+
+    if #keywords == 0 then
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: no keywords set');
+    else
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords list below');
+  
+      for i = 1, #keywords do
+        DEFAULT_CHAT_FRAME:AddMessage(i .. '. ' .. keywords[i]);
+      end
+    end
+
+    return nil;
+  end
+
+  if slashMessage == 'clear' then
+    keywords = {};
+
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords was cleared');
+
     return nil;
   end
 
   local firstArg, secondArg = string.match(slashMessage, '(.+)%s(.+)')
 
-  if firstArg == 'keyword' then
-    keyword = secondArg;
+  if firstArg == 'add' then
+    table.insert(keywords, secondArg);
+
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. secondArg .. '" was added');
+
     return nil;
+  end
+
+  if firstArg == 'remove' then
+
+    if keywords[tonumber(secondArg)] then
+      local removedKeyword = table.remove(keywords, secondArg);
+  
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. removedKeyword .. '" was removed');
+  
+      return nil;
+    else
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword with index "' .. secondArg .. '" not found');
+    end
+
   end
 
 end
