@@ -1,0 +1,6 @@
+## Interface: 20400
+## Title: ChatNotifier
+## Version: 1.0
+## SavedVariables: enabled, keyword
+
+ChatNotifier.lua
