@@ -9,6 +9,7 @@
 2. each message is checked on specific keywords match
 3. on success match at least of one keyword - addon print copy of message(only visible to you)
 4. keywords may be defined by slash command(below)
+5. [DEMO](https://vimeo.com/408054853)
 
 ## How to install?
 1. Download from [Google Drive](https://drive.google.com/open?id=1WWUEKlO-0Fxa69G0N1Es0191-w7zyVLP)
