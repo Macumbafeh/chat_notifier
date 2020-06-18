@@ -28,7 +28,8 @@ chatFrame:SetScript(
     end
 
     if matched then
-      DEFAULT_CHAT_FRAME:AddMessage('[' .. sender .. ']: ' .. chatMessage);
+
+      DEFAULT_CHAT_FRAME:AddMessage("|Hplayer:" .. sender .. "|h[" .. sender .. "]|h: " .. chatMessage,0.94,0.9,0.54);
     end
 
   end
@@ -40,9 +41,9 @@ function SlashCmdList.CN(slashMessage)
 
   if slashMessage == 'enabled' then
     if enabled then
-        DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled');
+        DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled',0.94,0.9,0.54);
     else
-      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled',0.94,0.9,0.54);
     end
 
     return nil;
@@ -51,7 +52,7 @@ function SlashCmdList.CN(slashMessage)
   if slashMessage == 'enable' then
     enabled = true;
 
-    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled');
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: enabled',0.94,0.9,0.54);
 
     return nil;
   end
@@ -59,7 +60,7 @@ function SlashCmdList.CN(slashMessage)
   if slashMessage == 'disable' then
     enabled = false;
 
-    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled');
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: disabled',0.94,0.9,0.54);
 
     return nil;
   end
@@ -67,12 +68,12 @@ function SlashCmdList.CN(slashMessage)
   if slashMessage == 'show' then
 
     if #keywords == 0 then
-      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: no keywords set');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: no keywords set',0.94,0.9,0.54);
     else
-      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords list below');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords list below',0.94,0.9,0.54);
   
       for i = 1, #keywords do
-        DEFAULT_CHAT_FRAME:AddMessage(i .. '. ' .. keywords[i]);
+        DEFAULT_CHAT_FRAME:AddMessage(i .. '. ' .. keywords[i],0.94,0.9,0.54);
       end
     end
 
@@ -82,7 +83,7 @@ function SlashCmdList.CN(slashMessage)
   if slashMessage == 'clear' then
     keywords = {};
 
-    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords was cleared');
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keywords was cleared',0.94,0.9,0.54);
 
     return nil;
   end
@@ -92,7 +93,7 @@ function SlashCmdList.CN(slashMessage)
   if firstArg == 'add' then
     table.insert(keywords, secondArg);
 
-    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. secondArg .. '" was added');
+    DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. secondArg .. '" was added',0.94,0.9,0.54);
 
     return nil;
   end
@@ -102,11 +103,11 @@ function SlashCmdList.CN(slashMessage)
     if keywords[tonumber(secondArg)] then
       local removedKeyword = table.remove(keywords, secondArg);
   
-      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. removedKeyword .. '" was removed');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword "' .. removedKeyword .. '" was removed',0.94,0.9,0.54);
   
       return nil;
     else
-      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword with index "' .. secondArg .. '" not found');
+      DEFAULT_CHAT_FRAME:AddMessage('ChatNotifier: keyword with index "' .. secondArg .. '" not found',0.94,0.9,0.54);
     end
 
   end
